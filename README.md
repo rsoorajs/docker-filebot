@@ -122,7 +122,7 @@ the `-e` parameter in the format `<VARIABLE_NAME>=<VALUE>`.
 |`LANG`| Sets the [locale](https://en.wikipedia.org/wiki/Locale_(computer_software)), defining the application's language, if supported. Format is `language[_territory][.codeset]`, where language is an [ISO 639 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), territory is an [ISO 3166 country code](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes), and codeset is a character set, like `UTF-8`. For example, Australian English using UTF-8 is `en_AU.UTF-8`. | `en_US.UTF-8` |
 |`TZ`| [TimeZone](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones) used by the container. The timezone can also be set by mapping `/etc/localtime` between the host and the container. | `Etc/UTC` |
 |`KEEP_APP_RUNNING`| When set to `1`, the application is automatically restarted if it crashes or terminates. | `0` |
-|`APP_NICENESS`| Priority at which the application runs. A niceness value of -20 is the highest, 19 is the lowest and 0 the default. **NOTE**: A negative niceness (priority increase) requires additional permissions. The container must be run with the Docker option `--cap-add=SYS_NICE`. | `0` |
+|`APP_NICENESS`| Priority at which the application runs. A niceness value of `-20` is the highest, `19` is the lowest and `0` the default. **NOTE**: A negative niceness (priority increase) requires additional permissions. The container must be run with the Docker option `--cap-add=SYS_NICE`. | `0` |
 |`INSTALL_PACKAGES`| Space-separated list of packages to install during container startup. List of available packages can be found at https://pkgs.alpinelinux.org. | (no value) |
 |`PACKAGES_MIRROR`| Mirror of the repository to use when installing packages. List of mirrors is available at https://mirrors.alpinelinux.org. | (no value) |
 |`CONTAINER_DEBUG`| When set to `1`, enables debug logging. | `0` |
@@ -149,23 +149,23 @@ the `-e` parameter in the format `<VARIABLE_NAME>=<VALUE>`.
 |`ENABLE_CJK_FONT`| When set to `1`, installs the open-source font `WenQuanYi Zen Hei`, supporting a wide range of Chinese/Japanese/Korean characters. | `0` |
 |`FILEBOT_GUI`| Setting this to `1` enables the FileBot GUI, `0` disables it. | `1` |
 |`AMC_ENABLED`| Setting this to `1` enables the Automated Media Center (AMC) script, `0` disables it. | `1` |
-|`OPENSUBTITLES_USERNAME`| Username of your [OpenSubtitles](https://www.opensubtitles.com) account.  Required to download subtitles. | (no value) |
-|`OPENSUBTITLES_PASSWORD`| Password of your [OpenSubtitles](https://www.opensubtitles.com) account.  Required to download subtitles. | (no value) |
-|`FILEBOT_CUSTOM_OPTIONS`| Custom arguments to pass to FileBot.  This applies to the UI only. | (no value) |
-|`USE_FILEBOT_BETA`| When set to `1`, FileBot installed under `/config/beta` (container path) is used.  If no FileBot installation is found under this folder, the latest beta version is automatically downloaded during container startup.  See [Using a Beta Version](#using-a-beta-version) section for more details.  **NOTE**: Use at your own risk.  Beta version may have bugs and stability issues. | `0` |
+|`OPENSUBTITLES_USERNAME`| Username of your [OpenSubtitles](https://www.opensubtitles.com) account. Required to download subtitles. | (no value) |
+|`OPENSUBTITLES_PASSWORD`| Password of your [OpenSubtitles](https://www.opensubtitles.com) account. Required to download subtitles. | (no value) |
+|`FILEBOT_CUSTOM_OPTIONS`| Custom arguments to pass to FileBot. This applies to the UI only. | (no value) |
+|`USE_FILEBOT_BETA`| When set to `1`, FileBot installed under `/config/beta` (container path) is used. If no FileBot installation is found under this folder, the latest beta version is automatically downloaded during container startup. See [Using a Beta Version](#using-a-beta-version) section for more details. **NOTE**: Use at your own risk. Beta version may have bugs and stability issues. | `0` |
 |`AMC_INTERVAL`| Time (in seconds) between each invocation of the Automated Media Center (AMC) script. | `1800` |
-|`AMC_INPUT_STABLE_TIME`| Time (in seconds) during which properties (e.g. size, time, etc) of files in the watch folder need to remain the same before invoking the Automated Media Center (AMC) script.  This is to avoid processing the watch folder while files are being copied. | `10` |
-|`AMC_ACTION`| Action performed by the Automated Media Center (AMC) script on files.  Valid values are `test`, `copy`, `move`, `symlink`, `hardlink`, `keeplink`, `duplicate` or `clone`.  Use the `test` operation to perform a dry-run and verify that everything gets matched up correctly. | `test` |
-|`AMC_CONFLICT`| Conflict resolution strategy used by the Automated Media Center (AMC) script.  When set to `skip`, existing files are never overriden, while `auto` overrides existing file only if new media is better. | `auto` |
-|`AMC_MATCH_MODE`| Match mode used by the Automated Media Center (AMC) script.  The `opportunistic` mode works for all files regardless how badly they are named, while `strict` mode works for reasonably well-named files and ignore files that cannot be matched accurately.  See [Match Mode](https://www.filebot.net/forums/viewtopic.php?t=4695) for complete documentation. | `opportunistic` |
+|`AMC_INPUT_STABLE_TIME`| Time (in seconds) during which properties (e.g. size, time, etc) of files in the watch folder need to remain the same before invoking the Automated Media Center (AMC) script. This is to avoid processing the watch folder while files are being copied. | `10` |
+|`AMC_ACTION`| Action performed by the Automated Media Center (AMC) script on files.  Valid values are `test`, `copy`, `move`, `symlink`, `hardlink`, `keeplink`, `duplicate` or `clone`. Use the `test` operation to perform a dry-run and verify that everything gets matched up correctly. | `test` |
+|`AMC_CONFLICT`| Conflict resolution strategy used by the Automated Media Center (AMC) script. When set to `skip`, existing files are never overriden, while `auto` overrides existing file only if new media is better. | `auto` |
+|`AMC_MATCH_MODE`| Match mode used by the Automated Media Center (AMC) script. The `opportunistic` mode works for all files regardless how badly they are named, while `strict` mode works for reasonably well-named files and ignore files that cannot be matched accurately. See [Match Mode](https://www.filebot.net/forums/viewtopic.php?t=4695) for complete documentation. | `opportunistic` |
 |`AMC_ARTWORK`| When set to `y`, artwork is fetched and NFO file is generated by the Automated Media Center (AMC) script. | `n` |
-|`AMC_LANG`| Language used by the Automated Media Center (AMC) script to rename files.  Two-characters language code or value like English, French, German, Chinese, etc can be used. | `English` |
-|`AMC_MUSIC_FORMAT`| Define how music files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
-|`AMC_MOVIE_FORMAT`| Define how movie files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
-|`AMC_SERIES_FORMAT`| Define how TV series files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
-|`AMC_ANIME_FORMAT`| Define how anime files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
-|`AMC_PROCESS_MUSIC`| When set to `y`, music files are processed by the Automated Media Center (AMC) script.  A value of `n` does not process them. | `y` |
-|`AMC_SUBTITLE_LANG`| Comma-separated list of subtitle languages to download.  Example: `en,de,fr`. | (no value) |
+|`AMC_LANG`| Language used by the Automated Media Center (AMC) script to rename files. Two-characters language code or value like English, French, German, Chinese, etc can be used. | `English` |
+|`AMC_MUSIC_FORMAT`| Define how music files are renamed by the Automated Media Center (AMC) script. Filebot supports a very powerful naming scheme. See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
+|`AMC_MOVIE_FORMAT`| Define how movie files are renamed by the Automated Media Center (AMC) script. Filebot supports a very powerful naming scheme. See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
+|`AMC_SERIES_FORMAT`| Define how TV series files are renamed by the Automated Media Center (AMC) script. Filebot supports a very powerful naming scheme. See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
+|`AMC_ANIME_FORMAT`| Define how anime files are renamed by the Automated Media Center (AMC) script. Filebot supports a very powerful naming scheme. See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
+|`AMC_PROCESS_MUSIC`| When set to `y`, music files are processed by the Automated Media Center (AMC) script. A value of `n` does not process them. | `y` |
+|`AMC_SUBTITLE_LANG`| Comma-separated list of subtitle languages to download. Example: `en,de,fr`. | (no value) |
 |`AMC_CUSTOM_OPTIONS`| Custom arguments to pass to the Automated Media Center (AMC) script. | (no value) |
 |`AMC_INPUT_DIR`| Directory inside the container used as the input folder of the Automated Media Center (AMC) script. | `/watch` |
 |`AMC_OUTPUT_DIR`| Directory inside the container used as the output folder of the Automated Media Center (AMC) script. | `/output` |
@@ -801,7 +801,7 @@ the author was expecting users to donate an arbitrary amount of money if they
 like and use the software.
 
 The last version of FileBot supporting this model is
-`4.7.9`.  This version is implemented in container image version `1.0.2`.
+`4.7.9`. This version is implemented in container image version `1.0.2`.
 
 To revert to this version, create the container by using
 `jlesage/filebot:v1.0.2` as the image name.
@@ -813,7 +813,7 @@ supported and maintained by the author of FileBot.
 
 This container supports the FileBot's
 [Automated Media Center](https://www.filebot.net/forums/viewtopic.php?t=215)
-(AMC) script.  This script automatically and smartly organizes movies, TV shows,
+(AMC) script. This script automatically and smartly organizes movies, TV shows,
 anime and music.
 
 Basically, files copied to the `/watch` container folder are automatically
@@ -826,18 +826,18 @@ descriptions of environment variables that can be set.
 To see what the AMC script is doing, look at the container's log.
 
 **NOTE**: By default, the script runs in dry mode, meaning that no change is
-performed.  This allows you to verify that results produced by the script are
-correct.  Then, the `AMC_ACTION` environment variable can be updated to perform
+performed. This allows you to verify that results produced by the script are
+correct. Then, the `AMC_ACTION` environment variable can be updated to perform
 changes to the file system.
 
 **NOTE**: For the script to properly function, container folders `/watch` and
-`/output` must be properly mapped to the host.  See the
+`/output` must be properly mapped to the host. See the
 [Data Volumes](#data-volumes) section.
 
 ## Using a Beta Version
 
 This container provides the stable version of FileBot.
-However, it's possible to use a beta version when needed.  This is done by
+However, it's possible to use a beta version when needed. This is done by
 setting the environment variable `USE_FILEBOT_BETA` to `1`.
 
 When set, the custom FileBot installation located under
@@ -845,11 +845,11 @@ When set, the custom FileBot installation located under
 
 FileBot beta version can be installed manually, by
 downloading the portable version from https://get.filebot.net/filebot/BETA and
-extracting the package to `/config/beta`.  Else, the latest beta version is
+extracting the package to `/config/beta`. Else, the latest beta version is
 downloaded automatically during the startup of the container if no installation
 is found under `/config/beta`.
 
-**NOTE**: Beta version may have bugs and stability issues.  Use at your own
+**NOTE**: Beta version may have bugs and stability issues. Use at your own
 risk.
 
 ## Support or Contact
