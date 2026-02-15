@@ -9,7 +9,7 @@ ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
 ARG FILEBOT_VERSION=5.2.0
-ARG MEDIAINFOLIB_VERSION=25.10
+ARG MEDIAINFOLIB_VERSION=26.01
 ARG ZENLIB_VERSION=0.4.41
 ARG UNRAR_VERSION=6.1.7
 
@@ -34,7 +34,7 @@ RUN \
     mkdir /opt/filebot && \
     cp -Rv /tmp/filebot/jar /opt/filebot/
 
-# Build unrar.  It has been moved to non-free since Alpine 3.15.
+# Build unrar. It has been moved to non-free since Alpine 3.15.
 # https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.15.0#unrar_moved_to_non-free
 FROM --platform=$BUILDPLATFORM alpine:3.16 AS unrar
 ARG TARGETPLATFORM
