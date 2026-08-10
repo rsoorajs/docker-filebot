@@ -129,6 +129,7 @@ RUN \
     set-cont-env APP_NAME "FileBot" && \
     set-cont-env APP_VERSION "$FILEBOT_VERSION" && \
     set-cont-env DOCKER_IMAGE_VERSION "$DOCKER_IMAGE_VERSION" && \
+    set-cont-env DISABLE_GLX 1 && \
     true
 
 # Set public environment variables.
